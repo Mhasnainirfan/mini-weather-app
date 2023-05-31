@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+    <div class="card">
+        <div class="search">
+    <form onsubmit="getWeather(); return false">
+    <input type="text" name="cityName" id="cityName" placeholder="enter your city name"> 
+    <br>
+    <button type="submit" class="btn">search</button>
+</form>
+<div class="weather">
+    <img src="images__1_-removebg-preview.png"class = "weather-icon"></div>
+    <h1 class="temp">26.9°C</h1>
+    <h2 class="city">london</h2>
+    <h2 class="feels">25°C</h2>
+    <div class="details">
+        <div class="col">
+    <img class ="img1"src="images__2_-removebg-preview.png">
+    <div>
+        <h2 class="humidity">50%<br>
+          <h3 class = "description">HUMIDITY</h3>
+        </h2>
+        
+        
+    </div>
+    <div class="bil">
+        <img src="download__2_-removebg-preview (1).png" height="50px">
+        <div>
+            <h2 class="wind">20km/h<br>
+              <h3 class = "detail">WIND SPEED</h3>
+            </h2>
+            
+            <div class="col3">
+                <img src="download__1_-removebg-preview.png" height="50px">
+                    <h2 class="feels">
+                      <h3 class = "delete">TEMPERATURE</h3>
+                    </h2></div>
+                    <div>
+                      <h4 class="name"> HASNAIN IRFAN/linkedin:Hasnain Irfan/github:Mhasnainirfan  </h4>
+                    </div>
+              </div>
+            </div>
+         </div>
+     </div>
+</div> 
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module">
+   
+    window.getWeather = function(event) {
+        let cityName = document.querySelector("#cityName").value;
+        let weatherIcon = document.querySelector(".weather-icon");
+      
+        
+        axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=e0f99c494c2ce394a18cc2fd3f100543&units=metric`)
+       .then(function (response) {
+        // handle success
+         console.log(response.data);
+         document.querySelector(".temp").innerHTML = (response.data.main.temp) + "°C";
+         document.querySelector(".city").innerHTML = (response.data.name);
+         document.querySelector(".humidity").innerHTML = (response.data.main.humidity) + " % ";
+         document.querySelector(".wind").innerHTML = (response.data.wind.speed) + "km/h";
+         document.querySelector(".feels").innerHTML = (response.data.main.feels_like) ;
+        
+         let temperature = response.data.main.temp;
+         if (temperature <=29) {
+            weatherIcon.src ="download-removebg-preview (1).png";
+         } else if (temperature > 30) {
+            weatherIcon.src = "sun.png";
+         } else {
+            weatherIcon.style.backgroundImage = "url('none')";
+         }
+      })
+     .catch(function (error) {
+    // handle error
+      console.log(error);
+    })
+  }
+ 
+ 
+</script>
+
+
+
+</body>
+</html>
